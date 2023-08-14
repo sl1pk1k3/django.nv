@@ -21,6 +21,20 @@ jobs:
     steps:
       - run: echo "This is an integration step"
       - run: exit 1
+      - continue-on-error: true  # This acction allows to fails and the workflow continuos Esta acción puede fallar pero el trabajo continuará
+
+  artifact:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Construir artefacto en .txt
+      - run: echo "Este es el contenido del archivo hello" > hello.txt
+
+    steps:
+      - name: Almacenar Artifacto
+      - uses: action/upload
+      - with:
+          - name: hello.txt
+          - path: .github/workflows/hello.txt
 
   prod:
     runs-on: ubuntu-20.04
